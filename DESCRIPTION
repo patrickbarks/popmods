@@ -1,0 +1,14 @@
+Package: popmods
+Title: Tidy Population Models In Ecology
+Version: 0.1
+Author: Patrick Barks <patrick.barks@gmail.com>
+Maintainer: Patrick Barks <patrick.barks@gmail.com>
+Description: Tidy output from continuous-time population models in ecology.
+Depends: R (>= 3.1.0),
+License: GPL-3
+Imports:
+    deSolve,
+    dplyr,
+    tidyr
+LazyData: true
+RoxygenNote: 6.0.1
