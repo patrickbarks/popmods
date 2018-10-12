@@ -15,32 +15,29 @@
 #'   \code{Abundance} \tab \tab Abundance of given population at given time\cr
 #' }
 #'
-#' @export
-#' @import deSolve
-#' @import dplyr
-#' @importFrom stats setNames
-#' @importFrom tidyr gather
-#'
 #' @examples
 #' t <- seq(0, 50, 0.1)
 #' lotka_volterra(time = t, init_n = 50, init_p = 30, r = 0.8, c = 0.04, a = 0.2,
 #'                m = 0.3)
+#'
+#' @importFrom deSolve ode
+#' @export lotka_volterra
 lotka_volterra <- function(time, init_n, init_p, r, c, a, m) {
 
-  levs <- c('Prey', 'Predator')
+  out <- ode(
+    mod_lotka_volterra,
+    y = c(n = init_n, p = init_p),
+    parms = list(r = r, c = c, a = a, m = m),
+    times = time
+  )
 
-  out <- ode(mod_lotka_volterra,
-             y = c(n = init_n, p = init_p),
-             parms = list(r = r, c = c, a = a, m = m),
-             times = time) %>%
-    as.data.frame() %>%
-    setNames(c('Time', levs)) %>%
-    gather('Population', 'Abundance', 2:3)
-
-  out$Population <- factor(out$Population, levs)
+  levs <- c("prey", "predator")
+  out <- tidy_fn(out, col_names = c("time", levs))
+  out <- gather_fn(out, "population", "abundance", cols = 2:3, key_levs = levs)
 
   return(out)
 }
+
 
 
 mod_lotka_volterra <- function(time, state, pars) {

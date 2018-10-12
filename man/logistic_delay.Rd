@@ -30,4 +30,5 @@ Delayed Logistic Growth Model
 \examples{
 t <- seq(0, 50, 0.1)
 logistic_delay(time = t, init_n = 450, r = 1.1, k = 500, tau = 1.12)
+
 }

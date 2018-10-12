@@ -32,4 +32,5 @@ Rock-Paper-Scissors Intransitive Competition Model
 \examples{
 t <- seq(0, 50, 0.1)
 rps(time = t, init_r = 0.01, init_p = 0.4, init_s = 0.5, b = 0.6)
+
 }

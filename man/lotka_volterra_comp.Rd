@@ -40,4 +40,5 @@ Lotka-Volterra 2-Species Competition Model
 t <- seq(0, 50, 0.1)
 lotka_volterra_comp(time = t, init_n1 = 10, init_n2 = 10, r1 = 0.5, r2 = 0.1,
                     k1 = 100, k2 = 100, a1 = -0.001, a2 = -0.4)
+
 }

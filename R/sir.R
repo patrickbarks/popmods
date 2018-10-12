@@ -14,40 +14,34 @@
 #'   \code{Proportion} \tab \tab Proportion of population with given status at given time\cr
 #' }
 #'
-#' @export
-#' @import deSolve
-#' @import dplyr
-#' @importFrom stats setNames
-#' @importFrom tidyr gather
-#'
 #' @examples
 #' t <- seq(0, 50, 0.1)
 #' sir(time = t, init_s = 0.9999, init_i = 0.0001, init_r = 0, gamma = 0.6,
 #'     beta = 0.08)
+#'
+#' @importFrom deSolve ode
+#' @export sir
 sir <- function(time, init_s, init_i, init_r, gamma, beta) {
 
   init_sum <- sum(init_s, init_i, init_r)
+  init_s = init_s / init_sum
+  init_i = init_i / init_sum
+  init_r = init_r / init_sum
 
-  if (init_sum != 1) {
-    init_s = init_s / init_sum
-    init_i = init_i / init_sum
-    init_r = init_r / init_sum
-  }
+  out <- ode(
+    mod_sir,
+    y = c(s = init_s, i = init_i, r = init_r),
+    parms = list(b = beta, g = gamma),
+    times = time
+  )
 
-  levs <- c('Susceptible', 'Infected', 'Resistant')
-
-  out <- deSolve::ode(mod_sir,
-             y = c(s = init_s, i = init_i, r = init_r),
-             parms = list(b = beta, g = gamma),
-             times = time) %>%
-    as.data.frame() %>%
-    setNames(c('Time', levs)) %>%
-    gather('Status', 'Proportion', 2:4)
-
-  out$Status <- factor(out$Status, levs)
+  levs <- c("susceptible", "infected", "resistant")
+  out <- tidy_fn(out, col_names = c("time", levs))
+  out <- gather_fn(out, "status", "proportion", cols = 2:4, key_levs = levs)
 
   return(out)
 }
+
 
 
 mod_sir <- function (time, state, pars) {

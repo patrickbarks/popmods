@@ -7,8 +7,7 @@ Description: Tidy output from continuous-time population models in ecology.
 Depends: R (>= 3.1.0),
 License: GPL-3
 Imports:
-    deSolve,
-    dplyr,
-    tidyr
+    deSolve
+Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0

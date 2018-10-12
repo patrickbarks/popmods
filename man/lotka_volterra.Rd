@@ -36,4 +36,5 @@ Lotka-Volterra Predator-Prey Model
 t <- seq(0, 50, 0.1)
 lotka_volterra(time = t, init_n = 50, init_p = 30, r = 0.8, c = 0.04, a = 0.2,
                m = 0.3)
+
 }

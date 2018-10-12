@@ -17,32 +17,29 @@
 #'   \code{Abundance} \tab \tab Abundance of given population at given time\cr
 #' }
 #'
-#' @export
-#' @import deSolve
-#' @import dplyr
-#' @importFrom stats setNames
-#' @importFrom tidyr gather
-#'
 #' @examples
 #' t <- seq(0, 50, 0.1)
 #' lotka_volterra_comp(time = t, init_n1 = 10, init_n2 = 10, r1 = 0.5, r2 = 0.1,
 #'                     k1 = 100, k2 = 100, a1 = -0.001, a2 = -0.4)
+#'
+#' @importFrom deSolve ode
+#' @export lotka_volterra_comp
 lotka_volterra_comp <- function(time, init_n1, init_n2, r1, r2, k1, k2, a1, a2) {
 
-  levs <- c('Pop. 1', 'Pop. 2')
+  out <- ode(
+    mod_lotka_volterra_comp,
+    y = c(n1 = init_n1, n2 = init_n2),
+    parms = list(r1 = r1, r2 = r2, k1 = k1, k2 = k2, a1 = a1, a2 = a2),
+    times = time
+  )
 
-  out <- ode(mod_lotka_volterra_comp,
-             y = c(n1 = init_n1, n2 = init_n2),
-             parms = list(r1 = r1, r2 = r2, k1 = k1, k2 = k2, a1 = a1, a2 = a2),
-             times = time) %>%
-    as.data.frame() %>%
-    setNames(c('Time', levs)) %>%
-    gather('Population', 'Abundance', 2:3)
-
-  out$Population <- factor(out$Population, levs)
+  levs <- c("population 1", "population 2")
+  out <- tidy_fn(out, col_names = c("time", levs))
+  out <- gather_fn(out, "population", "abundance", cols = 2:3, key_levs = levs)
 
   return(out)
 }
+
 
 
 mod_lotka_volterra_comp <- function(time, state, pars) {

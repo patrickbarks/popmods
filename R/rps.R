@@ -14,39 +14,33 @@
 #'                               at given time\cr
 #' }
 #'
-#' @export
-#' @import deSolve
-#' @import dplyr
-#' @importFrom stats setNames
-#' @importFrom tidyr gather
-#'
 #' @examples
 #' t <- seq(0, 50, 0.1)
 #' rps(time = t, init_r = 0.01, init_p = 0.4, init_s = 0.5, b = 0.6)
+#'
+#' @importFrom deSolve ode
+#' @export rps
 rps <- function(time, init_r, init_p, init_s, b) {
 
   init_sum <- sum(init_r, init_p, init_s)
+  init_r = init_r / init_sum
+  init_p = init_p / init_sum
+  init_s = init_s / init_sum
 
-  if (init_sum != 1) {
-    init_r = init_r / init_sum
-    init_p = init_p / init_sum
-    init_s = init_s / init_sum
-  }
+  out <- ode(
+    mod_rps,
+    y = c(r = init_r, p = init_p, s = init_s),
+    parms = list(b = b),
+    times = time
+  )
 
-  levs <- c('Rock', 'Paper', 'Scissors')
-
-  out <- ode(mod_rps,
-             y = c(r = init_r, p = init_p, s = init_s),
-             parms = list(b = b),
-             times = time) %>%
-    as.data.frame() %>%
-    setNames(c('Time', levs)) %>%
-    gather('Strategy', 'Proportion', 2:4)
-
-  out$Strategy <- factor(out$Strategy, levs)
+  levs <- c("rock", "paper", "scissors")
+  out <- tidy_fn(out, col_names = c("time", levs))
+  out <- gather_fn(out, "strategy", "proportion", cols = 2:4, key_levs = levs)
 
   return(out)
 }
+
 
 
 mod_rps <- function(time, state, par) {

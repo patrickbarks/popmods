@@ -34,4 +34,5 @@ SIR Epidemiological Model
 t <- seq(0, 50, 0.1)
 sir(time = t, init_s = 0.9999, init_i = 0.0001, init_r = 0, gamma = 0.6,
     beta = 0.08)
+
 }
