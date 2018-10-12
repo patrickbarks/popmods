@@ -35,7 +35,7 @@ Usage
 -----
 
 ``` r
-devtools::load_all("~/popmods")
+library(popmods)
 library(ggplot2)
 
 # vector of time points at which to evaluate models
