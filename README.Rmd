@@ -11,15 +11,15 @@ knitr::opts_chunk$set(
   fig.path = "man/img/",
   eval=TRUE,
   dpi = 150,
-  fig.width = 5,
-  fig.height = 3.2
+  fig.width = 4.5,
+  fig.height = 3
 )
 library(ggplot2)
 tt <- theme_get() +
   theme(legend.position = c(0.98, 0.97),
         legend.justification = c(1, 1),
-        text = element_text(size = 9.5),
-        axis.title = element_text(size = 11))
+        text = element_text(size = 9),
+        axis.title = element_text(size = 9.5))
 theme_set(tt)
 ```
 
@@ -64,46 +64,46 @@ library(ggplot2)
 t <- seq(0, 50, 0.01)
 ```
 
-##### Delayed logistic
+###### Delayed logistic
 
 ```{r Delayed-logistic}
 df_dl <- logistic_delay(time = t, init_n = 10, r = 1.1, k = 500, tau = 1.12)
 
 ggplot(df_dl, aes(time, abundance)) +
-  geom_line(lwd = 1.5)
+  geom_line(lwd = 1.2)
 ```
 
 
-##### Lotka-Volterra predator-prey
+###### Lotka-Volterra predator-prey
 
 ```{r Lotka-Volterra-predator-prey}
 df_lvpp <- lotka_volterra(time = t, init_n = 50, init_p = 30, r = 0.8, c = 0.04,
                           a = 0.2, m = 0.3)
 
 ggplot(df_lvpp, aes(time, abundance, color = population)) +
-  geom_line(lwd = 1.5) +
+  geom_line(lwd = 1.2) +
   scale_color_brewer(type = 'qual', palette = 6)
 ```
 
-##### Rock-paper-scissors-lizard-spock competition
+###### Rock-paper-scissors-lizard-spock competition
 
 ```{r R-P-S-L-K-competition}
 df_rpslk <- rpslk(time = t, init_r = 0.02, init_p = 0.02, init_s = 0.03,
                   init_l = 0.9, init_k = 0.03, b = 0.7)
 
 ggplot(df_rpslk, aes(time, proportion, color = strategy)) +
-  geom_line(lwd = 1.5) +
+  geom_line(lwd = 1.2) +
   scale_color_brewer(type = 'qual', palette = 6)
 ```
 
-##### SIR epidemiological model
+###### SIR epidemiological model
 
 ```{r SIR-epidemiological-model}
 df_sir <- sir(time = t, init_s = 0.9999, init_i = 0.0001, init_r = 0,
               gamma = 0.6, beta = 0.08)
 
 ggplot(df_sir, aes(time, proportion, color = status)) +
-  geom_line(lwd = 1.5) +
+  geom_line(lwd = 1.2) +
   scale_color_brewer(type = 'qual', palette = 6)
 ```
 
