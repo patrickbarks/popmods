@@ -3,3 +3,6 @@
 language: R
 sudo: false
 cache: packages
+
+build_script:
+  - travis-tool.sh install_github patrickbarks/popmods
