@@ -1,4 +1,7 @@
 
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/patrickbarks/popmods?branch=master&svg=true)](https://ci.appveyor.com/project/patrickbarks/popmods) [![Travis-CI Build Status](https://travis-ci.org/patrickbarks/popmods.svg?branch=master)](https://travis-ci.org/patrickbarks/popmods)
+
 popmods
 =======
 

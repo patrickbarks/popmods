@@ -2,6 +2,8 @@
 output: github_document
 ---
 
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
 ```{r, echo = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -20,6 +22,9 @@ tt <- theme_get() +
         axis.title = element_text(size = 11))
 theme_set(tt)
 ```
+
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/patrickbarks/popmods?branch=master&svg=true)](https://ci.appveyor.com/project/patrickbarks/popmods)
+[![Travis-CI Build Status](https://travis-ci.org/patrickbarks/popmods.svg?branch=master)](https://travis-ci.org/patrickbarks/popmods)
 
 popmods
 =========
