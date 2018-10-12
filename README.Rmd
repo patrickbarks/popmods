@@ -25,6 +25,7 @@ theme_set(tt)
 
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/patrickbarks/popmods?branch=master&svg=true)](https://ci.appveyor.com/project/patrickbarks/popmods)
 [![Travis-CI Build Status](https://travis-ci.org/patrickbarks/popmods.svg?branch=master)](https://travis-ci.org/patrickbarks/popmods)
+[![Coverage Status](https://img.shields.io/codecov/c/github/patrickbarks/popmods/master.svg)](https://codecov.io/github/patrickbarks/popmods?branch=master)
 
 popmods
 =========

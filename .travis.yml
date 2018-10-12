@@ -6,3 +6,6 @@ cache: packages
 
 build_script:
   - travis-tool.sh install_github patrickbarks/popmods
+
+after_success:
+  - Rscript -e 'covr::codecov()'
